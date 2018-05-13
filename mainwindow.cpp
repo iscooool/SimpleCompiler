@@ -141,7 +141,6 @@ void MainWindow::LexicalAnalysis(){
             table->setItem(row, 0, item0);
 
             txt = QString((*iter).second);
-             //qDebug()<<"s:"<<QString(QLatin1String((*iter).second));
             item1->setText(txt);
 
             table->setItem(row, 1, item1);
@@ -164,67 +163,7 @@ void MainWindow::SyntaxAnalysis(){
 
     QTreeWidget *STT=new QTreeWidget(ui->SyntaxAnalysisWin);
 
-   /* QList<QTreeWidgetItem *> rootList;
-
-    queue<STree*> Q;
-    queue<QTreeWidgetItem *>QItem;
-    Q.push(STREE);
-    QTreeWidgetItem *imageItem1 = new QTreeWidgetItem;   //添加第一个父节点
-    imageItem1->setText(0,QString(STREE->getData()) );
-
-    rootList.append(imageItem1);
-    QItem.push(imageItem1);
-    while (!Q.empty()) {
-
-        STree* temp = Q.front();
-        Q.pop();
-        QTreeWidgetItem * tempItem=QItem.front();
-        QItem.pop();
-
-        for (int i=0; i<temp->getchild_num(); i++)
-        {
-            Q.push(temp->getChild(i));
-            QTreeWidgetItem *newItem = new QTreeWidgetItem;   //添加第一个父节点
-            newItem->setText(0,tr(temp->getChild(i)->getData()));
-
-            //rootList.append(newItem);
-            QItem.push(newItem);
-            tempItem->addChild(newItem);
-        }
-
-
-
-    }
-
-    STree *root = STREE;
-    stack <STree*> ST;
-    stack <int> DT;
-    STree *current;
-
-    ST.push(root);
-    DT.push(0);
-
-    int depth = 0;
-    while (!ST.empty())
-    {
-        current = ST.top();
-        ST.pop();
-        depth = DT.top();
-        DT.pop();
-        for (int i = 0; i < depth; i++)
-        {
-            cout << "  ";
-        }
-        cout << current->getData() << endl;
-        depth++;
-        for (int j = 0; j <= current->getchild_num() - 1; j++)
-        {
-            ST.push(current->getChild(j));
-            DT.push(depth);
-        }
-    }
-*/
-     QList<QTreeWidgetItem *> rootList;
+        QList<QTreeWidgetItem *> rootList;
     stack <STree*> ST;
     stack<QTreeWidgetItem *>QItem;
     STree *current;
@@ -249,7 +188,6 @@ void MainWindow::SyntaxAnalysis(){
             QTreeWidgetItem *newItem = new QTreeWidgetItem;   //添加第一个父节点
             newItem->setText(0,tr(current->getChild(j)->getData()));
 
-            //rootList.append(newItem);
 
             tempItem->addChild(newItem);
             QItem.push(newItem);
@@ -258,17 +196,13 @@ void MainWindow::SyntaxAnalysis(){
 
 
 
-   // ST->header()->setMinimumSectionSize(2000);
     QHBoxLayout *layout = new QHBoxLayout;
     QScrollArea *scrollArea = new QScrollArea;
     scrollArea->setBackgroundRole(QPalette::Dark);
-    //ST->setMinimumSize (100, 100 );
-    //ST->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); //可选;
     scrollArea->setWidget(STT);
     scrollArea->setAlignment(Qt::AlignCenter);  // 居中对齐
     scrollArea->setWidgetResizable(true);  // 自动调整大小
 
-    //scrollArea->show();
     STT->setHeaderLabel(tr("语法分析树"));
     STT->insertTopLevelItems(0,rootList);  //将结点插入部件中
 
@@ -284,16 +218,7 @@ void MainWindow::openTextEdit(){
 
 void MainWindow::SemanticAnalysis()
 {
-   /* G=new Grammar();
-    G->Init_Grammar();
-    G->Show_Grammar();
-    G->First();
-    G->Follow();
-    G->Show_First();
-    G->Show_Follow();
-    G->MTable();
-*/
-    FILE *fp=FP(PATH);
+       FILE *fp=FP(PATH);
     STREE = new STree();
     if(!Analyze(STREE,fp))
         QMessageBox::about(NULL, "错误", "语法分析错误。");
@@ -344,7 +269,6 @@ void MainWindow::SemanticAnalysis()
 
             item0->setText(tr(TempQuad->label));
             table->setItem(row, 0, item0);
-           // qDebug(TempQuad->label);
 
             item1->setText(tr(TempQuad->op));
             table->setItem(row, 1, item1);

@@ -527,24 +527,12 @@ bool Analyze(STree* &root,FILE* fp)
 {
     Grammar G;
     G.Init_Grammar();
-    //G.Show_Grammar();
     G.First();
     G.Follow();
-    //G.Show_First();
-    //G.Show_Follow();
     G.MTable();
 
     Lexical L;
-    /*
-    FILE *fp;
-    fopen_s(&fp, "E:\\学习\\大三\\编译原理\\Compiler\\Compiler\\test.txt", "r");
-    if (!fp)
-    {
-		cout << "打开文件失败" << endl;
-        return false;
-    }
-    */
-    int i;
+   int i;
 	int ChildNo;		//在用某条产生式生成子节点的时候记录子节点个数
     Word next_word;
     //语法分析要用到的栈

@@ -472,7 +472,6 @@ void Semantic::SemanticFun_18(STree* T)
                 T->QLchild[i] = T->child[i]->QLparent;
         }
 
-        //NewLabel(T->child[2]->begin);
         T->child[2]->begin = new char[LABEL_LENGTH];
         T->child[2]->begin[0] = '\0';
     }
@@ -494,12 +493,9 @@ void Semantic::SemanticFun_24(STree* T)
             if (T->child[i] != NULL)
                 T->QLchild[i] = T->child[i]->QLparent;
         }
-        //NewLabel(T->child[1]->begin);
         T->child[1]->begin = new char[LABEL_LENGTH];
         T->child[1]->begin[0] = '\0';
 
-        //strcpy(T->child[0]->next, T->child[1]->begin);
-        //strcpy_s(T->child[0]->begin, T->begin);
         T->child[0]->next = T->child[1]->begin;
         T->child[0]->begin = T->begin;
         T->child[1]->next = T->next;
@@ -520,11 +516,8 @@ void Semantic::SemanticFun_25(STree* T)
             if (T->child[i] != NULL)
                 T->QLchild[i] = T->child[i]->QLparent;
         }
-        //NewLabel(T->child[1]->begin);
         T->child[1]->begin = new char[LABEL_LENGTH];
         T->child[1]->begin[0] = '\0';
-        //strcpy(T->child[0]->next, T->child[1]->begin);
-        //strcpy_s(T->child[0]->begin, T->begin);
         T->child[0]->next = T->child[1]->begin;
         T->child[0]->begin = T->begin;
     }
@@ -681,16 +674,11 @@ void Semantic::SemanticFun_34(STree* T)
             if (T->child[i] != NULL)
                 T->QLchild[i] = T->child[i]->QLparent;
         }
-        //NewLabel(T->child[2]->True);
         T->child[2]->True = new char[LABEL_LENGTH];
         T->child[2]->True[0] = '\0';
 
-        //strcpy_s(T->child[2]->next, T->child[2]->True);
-        //strcpy(T->child[2]->False, T->next);
-        //strcpy(T->child[4]->next, T->begin);
         T->child[2]->next = T->child[2]->True;
         T->child[2]->False = T->next;
-        //T->child[2]->next = T->next;
         T->child[4]->next = T->begin;
     }
     else
@@ -701,7 +689,6 @@ void Semantic::SemanticFun_34(STree* T)
             NewLabel(T->next);
         }
         Quadruples* NewQuad1 = Generate("jz", T->child[2]->name, "-", T->next);
-        //strcpy_s(NewQuad1->label, T->child[2]->next);
         NewQuad1->label = T->child[2]->next;
         if (T->begin[0] == '\0')
         {
@@ -711,7 +698,6 @@ void Semantic::SemanticFun_34(STree* T)
 
         if (T->child[2]->QLparent->head != NULL)
         {
-            //strcpy_s(T->child[2]->QLparent->head->label, T->begin);
             T->child[2]->QLparent->head->label = T->begin;
         }
 
@@ -744,18 +730,11 @@ void Semantic::SemanticFun_35(STree* T)
                 T->QLchild[i] = T->child[i]->QLparent;
         }
 
-        //NewLabel(T->child[2]->True);						//<表达式>.true = newlabel
         T->child[2]->True = new char[LABEL_LENGTH];
         T->child[2]->True[0] = '\0';
-        //strcpy_s(T->child[2]->next, T->child[2]->True);
         T->child[2]->next = T->child[2]->True;
-        //NewLabel(T->child[2]->False);						//<表达式>.false = newlabel
         T->child[2]->False = new char[LABEL_LENGTH];
         T->child[2]->False[0] = '\0';
-        //strcpy_s(T->child[4]->next, T->next);				//<语句块>.next = <if语句>.next
-        //strcpy_s(T->child[5]->next, T->next);				//<可选else语句块>.next=<if语句>.next
-
-        //strcpy_s(T->child[2]->begin,T->begin);
         T->child[4]->next = T->next;
         T->child[5]->next = T->next;
         T->child[2]->begin= T->begin;
@@ -765,12 +744,10 @@ void Semantic::SemanticFun_35(STree* T)
         char* TempJ;
         if (T->child[5]->QLparent->head != NULL)
         {
-            //strcpy_s(TempJ, T->child[2]->False);
             TempJ = T->child[2]->False;
         }
         else
         {
-            //strcpy_s(TempJ, T->next);
             TempJ = T->next;
         }
         if (TempJ[0] == '\0')
@@ -779,7 +756,6 @@ void Semantic::SemanticFun_35(STree* T)
         }
         Quadruples* NewQuad1 = Generate("jz", T->child[2]->name, "-", TempJ);				// gent(j, -, -, <if语句>.next)
 
-        //strcpy_s(NewQuad1->label, T->child[2]->next);
         NewQuad1->label = T->child[2]->next;
         if (T->next[0] == '\0')
         {
@@ -789,7 +765,6 @@ void Semantic::SemanticFun_35(STree* T)
         Quadruples* NewQuad2 = Generate("j", "-", "-", T->next);				// gent(j, -, -, <if语句>.next)
         if (T->child[5]->QLparent->head != NULL)
         {
-            //strcpy_s(T->child[5]->QLparent->head->label, T->child[2]->False);	//gent(<表达式>.false :)
             T->child[5]->QLparent->head->label = T->child[2]->False;
         }
 
@@ -872,7 +847,6 @@ void Semantic::SemanticFun_39(STree* T)
 
         NewLabel(L1);
         Quadruples* p = Generate(Temp_op, TempArg2, TempArg1, L1);
-        //strcpy_s(p->label, T->begin);
         p->label = T->begin;
 
         Quadruples* q = Generate("assign", "0", "-", T->getName());
@@ -887,7 +861,6 @@ void Semantic::SemanticFun_39(STree* T)
 
 
         q = Generate("assign", "1", "-", T->getName());
-        //strcpy(q->label, L1);
         q->label = L1;
 
         p->next->next->next = q;
@@ -934,9 +907,6 @@ void Semantic::SemanticFun_47(STree *T)
             if (T->child[i] != NULL)
                 T->QLchild[i] = T->child[i]->QLparent;
         }
-        //strcpy_s(T->child[1]->next, T->next);
-        //strcpy_s(T->child[1]->begin, T->child[0]->next);
-        //strcpy_s(T->child[0]->begin, T->begin);
         T->child[1]->next = T->next;
         T->child[0]->begin = T->begin;
         T->child[1]->begin = T->begin;
@@ -949,7 +919,6 @@ void Semantic::SemanticFun_47(STree *T)
 
         if (T->child[1]->ProNo == 39)
         {
-            //strcpy_s(T->child[1]->begin,T->begin);
             T->child[1]->begin = T->begin;
         }
 
