@@ -94,7 +94,7 @@ void Grammar::Init_Grammar()
     proc_num = 0;
 
     ifstream infile;
-    infile.open("E:\\Qt\\Projects\\Compiler_Win\\grammar-en.txt", ios::in);
+    infile.open("E:\\ppt\\3-2\\CompilerDesign\\Compiler_Win\\grammar-en.txt", ios::in);
     if (!infile.is_open())
     {
         cout << "打开文件失败" << endl;
